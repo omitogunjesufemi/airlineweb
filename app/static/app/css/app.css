@@ -1,0 +1,7 @@
+{% load static %}
+
+.help-block {
+    color: #F33;
+    font-size: small;
+}
+

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if aircraft %}
+        <div class="container">
+
+            <div class="row mx-auto mt-5">
+
+                <div class="col-md-12">
+
+                    <div class="card">
+
+                        <div class="card-header">
+                            <h3 class="card-title">Aircraft {{ aircraft.aircraft_name }}</h3>
+                        </div>
+
+                        <div class="card-body">
+                            <div>
+
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-6">
+                                        <label for="aircraft_name" class="form-check-label">Aircraft Name:</label>
+                                        <label class="form-control disabled" type="text" id="aircraft_name">{{ aircraft.aircraft_name }}</label>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="aircraft_type" class="form-check-label">Aircraft Type:</label>
+                                        <label class="form-control disabled" type="text" id="aircraft_type">{{ aircraft.aircraft_type }}</label>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="aircraft_number" class="form-check-label">Aircraft Number:</label>
+                                        <label class="form-control disabled" type="text" id="aircraft_number">{{ aircraft.aircraft_number }}</label>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="capacity" class="form-check-label">Aircraft Capacity:</label>
+                                        <label class="form-control disabled" type="text" id="capacity">{{ aircraft.capacity }}</label>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="date_created" class="form-check-label">Date Created:</label>
+                                        <label class="form-control disabled" type="text" id="date_created">{{ aircraft.date_created }}</label>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="date_updated" class="form-check-label">Date Updated:</label>
+                                        <label class="form-control disabled" type="text" id="date_updated">{{ aircraft.date_updated }}</label>
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <a href="{% url 'list_aircraft' %}" class="btn btn-success"> Back </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% else %}
+        <p class="text-center text-into mt-130"> Aircraft Details Does Not Exist</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            Booking for {{ passenger.last_name }}
+                        </h4>
+
+                        <div class="card-body">
+
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label for="first_name" class="form-check-label">First Name</label>
+                                    <input name="first_name" class="form-control disabled"
+                                           value="{{ passenger.first_name }}" id="first_name">
+
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label for="last_name" class="form-check-label">Last Name (Surname)</label>
+                                    <input name="last_name" class="form-control disabled"
+                                           value="{{ passenger.last_name }}" id="last_name">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label for="email" class="form-check-label">E-mail</label>
+                                    <input name="email" class="form-control disabled"
+                                           value="{{ passenger.email }}" id="email">
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label for="phone" class="form-check-label">Phone</label>
+                                    <input name="phone" class="form-control disabled"
+                                           value="{{ passenger.phone }}" id="phone">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-3">
+                                    <label for="take_off_location" class="form-check-label">Leaving From</label>
+                                    <input name="take_off_location" class="form-control disabled"
+                                           value="{{ flight.take_off_location }}" id="take_off_location">
+                                </div>
+
+                                <div class="form-group col-3">
+                                    <label for="destination" class="form-check-label">Going To</label>
+                                    <input name="destination" class="form-control disabled"
+                                           value="{{ flight.destination }}" id="destination">
+                                </div>
+
+                                <div class="form-group col-3">
+                                    <label for="departure_date" class="form-check-label">Date of Departure</label>
+                                    <input name="departure_date" class="form-control disabled"
+                                           value="{{ flight.departure_date }}" id="departure_date">
+                                </div>
+
+                                <div class="form-group col-3">
+                                    <label for="arrival_time" class="form-check-label">Arrival Time</label>
+                                    <input name="arrival_time" class="form-control disabled"
+                                           value="{{ flight.arrival_time }}" id="arrival_time">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-3">
+                                    <label for="booking_reference" class="form-check-label">Booking Reference</label>
+                                    <input name="booking_reference" class="form-control disabled"
+                                           value="{{ booking.booking_reference }}" id="booking_reference">
+                                </div>
+
+                                <div class="form-group col-3">
+                                    <label for="seat_number" class="form-check-label">Seat Number</label>
+                                    <input name="seat_number" class="form-control disabled"
+                                           value="{{ booking.seat_number }}" id="seat_number">
+                                </div>
+
+                                <div class="form-group col-3">
+                                    <label for="flight_class" class="form-check-label">Booking Class</label>
+                                    <input name="flight_class" class="form-control disabled"
+                                           value="{{ booking.flight_class }}" id="flight_class">
+                                </div>
+
+                                <div class="form-group col-3">
+                                    <label for="price" class="form-check-label">Price for Flight</label>
+                                    <input name="price" class="form-control disabled"
+                                           value="{{ booking.price }}" id="price">
+                                </div>
+                            </div>
+
+                            <div>
+                                <a href="{% url 'list_booking' %}" class="btn btn-primary"> << Back </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

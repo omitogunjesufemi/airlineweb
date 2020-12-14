@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row offset-sm-0">
+    <div class="col-md-12 ">
+        <h2>{{ title }}</h2>
+    </div>
+    <table class="table table-hover table-responsive text-center">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Registration Number</th>
+            <th class="text-center">Actions</th>
+        </tr>
+        </thead>
+        {% for passenger in passengers %}
+            <tbody>
+            <tr>
+                <td>{{ passenger.first_name }}</td>
+                <td>{{ passenger.last_name }}</td>
+                <td>{{ passenger.email }}</td>
+                <td>{{ passenger.phone }}</td>
+                <td>{{ passenger.address }}</td>
+                <td>{{ passenger.registration_number }}</td>
+
+                <td>
+                    <div class="btn-group">
+                        <a href="{% url 'passenger_details' passenger.id %}" class="btn btn-success"> Details</a>
+                    </div>
+
+                    <div class="btn-group">
+                        <a href="{%  url 'edit_passenger' passenger.id %}" class="btn btn-warning"> Edit</a>
+                    </div>
+                    <div class="btn-group">
+                        <a href="{% url 'delete_passenger' passenger.id %}" class="btn btn-danger"> Delete</a>
+                    </div>
+
+                </td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+{% endblock %}
+</div>

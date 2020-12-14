@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            Flight {{ flight.flight_number }}
+                        </h4>
+
+                        <div class="card-body">
+                            <form method="post" id="" action="{% url 'edit_flight' flight.id %}">
+                                {% csrf_token %}
+                                <div id="notify"></div>
+
+                                <div class="form-group">
+                                    <label for="aircraft_id" class="form-check-label">Choose an Aircraft</label>
+                                    <select name="aircraft_id" id="aircraft_id" class="form-control">
+                                        {% for air in aircrafts %}
+                                            <option value = "{{ air.id }}" class="form-control"> {{ air.aircraft_name }} </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="take_off_location" class="form-check-label">Leaving From</label>
+                                    <input name="take_off_location" class="form-control"
+                                           value="{{ flight.take_off_location }}" id="take_off_location">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="destination" class="form-check-label">Going To</label>
+                                    <input name="destination" class="form-control"
+                                           value="{{ flight.destination }}" id="destination">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="departure_date" class="form-check-label">Date of Departure</label>
+                                    <input name="departure_date" class="form-control"
+                                           value="{{ departure_date }}" id="departure_date">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="arrival_time" class="form-check-label">Arrival Time</label>
+                                    <input name="arrival_time" class="form-control"
+                                           value="{{ arrival_time }}" id="arrival_time" type="time">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="price" class="form-check-label">Price</label>
+                                    <input name="price" class="form-control"
+                                           value="{{ flight.price }}" id="price" type="number">
+                                </div>
+                                <div>
+                                    <input type="submit" class="button btn btn-success text-light"
+                                           value="Save Changes">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

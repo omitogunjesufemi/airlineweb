@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            {{ title }}
+                        </h4>
+                        <div class="card-body">
+                            <form method="post" id="aircraftForm" name="aircraftForm">
+                                {% csrf_token %}
+                                <div id="notify"></div>
+                                <div class="form-group">
+                                    <label for="aircraft_name" class="form-check-label">Aircraft Name</label>
+                                    <input name="aircraft_name" class="form-control"
+                                           value="{{ aircraft.aircraft_name }}" id="aircraft_name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="aircraft_type" class="form-check-label">Aircraft Type</label>
+                                    <input name="aircraft_type" class="form-control"
+                                           value="{{ aircraft.aircraft_type }}" id="aircraft_type">
+                                </div>
+                                <div class="form-group">
+                                    <label for="capacity" class="form-check-label">Capacity</label>
+                                    <input name="capacity" class="form-control"
+                                           value="{{ aircraft.capacity }}" id="capacity" type="text">
+                                </div>
+                                <div>
+                                    <input type="submit" class="button btn btn-primary btn-block text-light"
+                                           value="Submit">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

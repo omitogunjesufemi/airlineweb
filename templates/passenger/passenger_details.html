@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 mt-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            {{ passenger.first_name }} {{ passenger.last_name }}
+                        </h4>
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="first_name" class="form-check-label">First Name</label>
+                                <input name="first_name" class="form-control disabled"
+                                       value="{{ passenger.first_name }}" id="first_name">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="last_name" class="form-check-label">Last Name</label>
+                                <input name="last_name" class="form-control disabled"
+                                       value="{{ passenger.last_name }}" id="last_name">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="form-check-label">E-mail</label>
+                                <input name="email" class="form-control disabled"
+                                       value="{{ passenger.email }}" id="email">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" class="form-check-label">Going To</label>
+                                <input name="phone" class="form-control disabled"
+                                       value="{{ passenger.phone }}" id="destination">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="departure_date" class="form-check-label">Date of Departure</label>
+                                <input name="departure_date" class="form-control disabled"
+                                       value="{{ passenger.address }}" id="departure_date">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="arrival_time" class="form-check-label">Arrival Time</label>
+                                <input name="arrival_time" class="form-control disabled"
+                                       value="{{ passenger.registration_number }}" id="arrival_time">
+                            </div>
+
+                            <div>
+                                <a href="{% url 'list_passenger' %}" class="btn btn-primary"> << Back </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

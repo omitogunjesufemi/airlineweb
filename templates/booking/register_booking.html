@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            {{ title }}
+                        </h4>
+
+                        <div class="card-body">
+                            <form method="post" id="" action="{% url 'register_booking' flights.id %}">
+                                {% csrf_token %}
+                                <div id="notify"></div>
+
+                                <div class="form-group">
+                                    <label for="flight_class" class="form-check-label">Flight Class</label>
+                                    <input name="flight_class" class="form-control"
+                                           value="{{ booking.flight_class }}" id="flight_class">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="price" class="form-check-label">Price</label>
+                                    <input name="price" class="form-control"
+                                           value="{{ flight_price }}" id="price">
+                                </div>
+
+                                <div>
+                                    <input type="submit" class="button btn btn-primary btn-block text-light"
+                                           value="Submit">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
