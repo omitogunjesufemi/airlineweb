@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container">
-        <div class="row">
-            <div class="col-md-12 mt-5">
+        <div class="row justify-content-center">
+            <div class="col-9 mt-5">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">
@@ -10,54 +10,62 @@
                         </h4>
 
                         <div class="card-body">
-                                <div class="form-group">
-                                    <label for="aircraft_id" class="form-check-label">Choose an Aircraft</label>
+                            <div class="form-row">
+                                <div class="form-group col-4">
+                                    <label for="aircraft_id" class="form-check-label">Aircraft</label>
                                     <input name="aircraft_id" class="form-control" list="aircraft_id"
                                            value="{{ flight.aircraft_name }}" id="aircraft_id">
 
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group col-4">
                                     <label for="take_off_location" class="form-check-label">Leaving From</label>
                                     <input name="take_off_location" class="form-control disabled"
                                            value="{{ flight.take_off_location }}" id="take_off_location">
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group col-4">
                                     <label for="destination" class="form-check-label">Going To</label>
                                     <input name="destination" class="form-control disabled"
                                            value="{{ flight.destination }}" id="destination">
                                 </div>
 
-                                <div class="form-group">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-4">
                                     <label for="departure_date" class="form-check-label">Date of Departure</label>
                                     <input name="departure_date" class="form-control disabled"
                                            value="{{ flight.departure_date }}" id="departure_date">
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group col-4">
                                     <label for="arrival_time" class="form-check-label">Arrival Time</label>
                                     <input name="arrival_time" class="form-control disabled"
                                            value="{{ flight.arrival_time }}" id="arrival_time">
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group col-4">
                                     <label for="price" class="form-check-label">Price</label>
                                     <input name="price" class="form-control disabled"
                                            value="{{ flight.price }}" id="price" type="number">
                                 </div>
 
-                                <div class="form-group">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-6">
                                     <label for="date_created" class="form-check-label">Date Created</label>
                                     <input name="date_created" class="form-control disabled"
                                            value="{{ flight.date_created }}" id="date_created">
                                 </div>
 
-                                <div class="form-group">
+                                <div class="form-group col-6">
                                     <label for="date_updated" class="form-check-label">Date Updated</label>
                                     <input name="date_updated" class="form-control disabled"
                                            value="{{ flight.date_updated }}" id="date_updated">
                                 </div>
+                            </div>
                                 <div>
                                     <a href="{% url 'list_flight' %}" class="btn btn-primary"> << Back </a>
                                 </div>

@@ -40,6 +40,7 @@ class Passenger(models.Model):
     phone = models.CharField(max_length=20)
     address = models.CharField(max_length=500)
     registration_number = models.CharField(max_length=10)
+    user = models.ForeignKey(User, on_delete=models.RESTRICT)
 
     def __str__(self):
         return f'{self.first_name:25} {self.last_name:25} {self.email:25} {self.phone:25} {self.address:25}\

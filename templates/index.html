@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'app/css/bootstrap-reboot.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'app/css/app.css' %}">
 </head>
-<body style="background-image: image(url("{% static 'app/img/img 1.jpg' %}"))">
+<body>
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <button
                 class="navbar-toggler"
@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item ">
-                    <a class="nav-link text-secondary" href="{% url 'index' %}"> Home </a>
+                    <a class="nav-link text-light active" href="{% url 'index' %}"> Home </a>
                 </li>
 
                 <li class="nav-item ">
@@ -44,7 +44,7 @@
         </div>
     </nav>
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-6 mt-5">
                     <div class="card">
                         <div class="card-header shadow-sm">

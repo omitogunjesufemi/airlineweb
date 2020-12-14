@@ -1,0 +1,11 @@
+{% load static %}
+
+.help-block {
+    color: #F33;
+    font-size: small;
+}
+
+body {
+    background: url("../img/img 1.jpg") no-repeat;
+
+}
