@@ -9,6 +9,8 @@ from app.repositories.PassengerRepository import PassengerRepository, DjangoORMP
 from app.services.PassengerManagementServices import PassengerManagementService, DefaultPassengerManagementService
 from app.repositories.BookingRepository import BookingRepository, DjangoORMBookingRepository
 from app.services.BookingManagementService import BookingManagementService, DefaultBookingManagementService
+from app.repositories.StaffRepository import StaffRepository, DjangoORMStaffRepository, Group
+from app.services.StaffManagementService import StaffManagementService, DefaultStaffManagementService
 
 
 class Container(containers.DeclarativeContainer):
@@ -47,6 +49,15 @@ class Container(containers.DeclarativeContainer):
     booking_management_service: Callable[[], BookingManagementService] = providers.Factory(
         DefaultBookingManagementService,
         repository=booking_repository
+    )
+
+    # STAFF SERVICE PROVIDER
+    staff_repository: Callable[[], StaffRepository] = providers.Factory(
+        DjangoORMStaffRepository
+    )
+    staff_management_service: Callable[[], StaffManagementService] = providers.Factory(
+        DefaultStaffManagementService,
+        repository=staff_repository,
     )
 
 

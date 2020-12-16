@@ -34,13 +34,10 @@ class Flight(models.Model):
 
 
 class Passenger(models.Model):
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
-    email = models.EmailField()
     phone = models.CharField(max_length=20)
     address = models.CharField(max_length=500)
     registration_number = models.CharField(max_length=10)
-    user = models.ForeignKey(User, on_delete=models.RESTRICT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f'{self.first_name:25} {self.last_name:25} {self.email:25} {self.phone:25} {self.address:25}\
@@ -64,4 +61,4 @@ class Staff(models.Model):
     date_of_employment = models.DateField(null=True)
     role = models.CharField(max_length=200)
     department = models.CharField(max_length=200)
-    user = models.ForeignKey(User, on_delete=models.RESTRICT)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

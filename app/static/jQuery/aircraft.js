@@ -1,4 +1,4 @@
-$(document).ready(function () {
+(document).ready(function () {
 
     let capacity = /[0-9]/;
     $.validator.addMethod("validNumber", function (value, element) {

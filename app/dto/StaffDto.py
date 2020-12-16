@@ -1,10 +1,16 @@
-class CreateStaffDto:
+from datetime import date
+
+
+class RegisterStaffDto:
     first_name: str
     last_name: str
     password: str
     confirm_password: str
     email: str
     username: str
+    role: str
+    department: str
+    date_of_employment: date
 
 
 class EditStaffDto:
@@ -12,6 +18,9 @@ class EditStaffDto:
     last_name: str
     email: str
     username: str
+    role: str
+    department: str
+    date_of_employment: date
 
 
 class ListStaffDto:
@@ -19,6 +28,9 @@ class ListStaffDto:
     last_name: str
     email: str
     username: str
+    role: str
+    department: str
+    date_of_employment: date
 
 
 class StaffDetailsDto:
@@ -26,3 +38,6 @@ class StaffDetailsDto:
     last_name: str
     email: str
     username: str
+    role: str
+    department: str
+    date_of_employment: date

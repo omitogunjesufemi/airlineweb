@@ -8,7 +8,9 @@ class RegisterPassengerDto:
     phone: str
     address: str
     registration_number: str
-    # date_created: date
+    username: str
+    password: str
+    confirm_password: str
     id: int
 
 
@@ -18,6 +20,7 @@ class EditPassengerDto:
     email: str
     phone: str
     address: str
+    username: str
     registration_number: str
     # date_updated: date
     id: int
@@ -29,6 +32,7 @@ class ListPassengerDto:
     email: str
     phone: str
     address: str
+    username: str
     registration_number: str
     # date_created: date
     # date_updated: date
@@ -41,6 +45,7 @@ class PassengerDetailsDto:
     email: str
     phone: str
     address: str
+    username: str
     registration_number: str
     # date_created: date
     # date_updated: date

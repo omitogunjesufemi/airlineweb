@@ -16,8 +16,15 @@
 
                                 <div class="form-group">
                                     <label for="flight_class" class="form-check-label">Flight Class</label>
-                                    <input name="flight_class" class="form-control"
-                                           value="{{ booking.flight_class }}" id="flight_class">
+                                    <select name="flight_class" id="flight_class" class="form-control">
+                                        <option value='First' id="first"> First Class </option>
+                                        <option value='Business' id="business"> Business Class </option>
+                                        <option value='Economic' selected id="economic"> Economic Class </option>
+                                    </select>
+
+{#                                    <label for="flight_class" class="form-check-label">Flight Class</label>#}
+{#                                    <input name="flight_class" class="form-control"#}
+{#                                           value="{{ booking.flight_class }}" id="flight_class">#}
                                 </div>
 
                                 <div class="form-group">

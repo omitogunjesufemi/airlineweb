@@ -1,8 +1,10 @@
 import datetime
 import uuid
 
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404, HttpRequest
 
+from app.decorators import allowed_users
 from app.dto.AircraftDto import *
 from app.models import Aircraft
 from app.service_provider import airline_service_provider
@@ -10,6 +12,8 @@ from django.shortcuts import redirect, render
 from django.http.request import HttpRequest
 
 
+@login_required(login_url='login')
+@allowed_users(['staffs'])
 def register_aircraft(request):
     context = {
 
@@ -20,6 +24,8 @@ def register_aircraft(request):
     return render(request, 'aircraft/register_aircraft.html', context)
 
 
+@login_required(login_url='login')
+@allowed_users(['staffs'])
 def edit_aircraft(request, aircraft_id):
     edit_aircraft_dto = __get_aircraft_details_or_raise_404(request, aircraft_id)
     context = {
@@ -32,11 +38,15 @@ def edit_aircraft(request, aircraft_id):
     return render(request, 'aircraft/edit_aircraft.html/', context)
 
 
+@login_required(login_url='login')
+@allowed_users(['staffs'])
 def delete_aircraft(request, aircraft_id):
     airline_service_provider.aircraft_management_service().delete_aircraft(aircraft_id)
     return redirect('list_aircraft')
 
 
+@login_required(login_url='login')
+@allowed_users(['staffs'])
 def list_aircraft(request):
     aircrafts = airline_service_provider.aircraft_management_service().list_aircraft()
     context = {
@@ -46,6 +56,8 @@ def list_aircraft(request):
     return render(request, 'aircraft/list_aircraft.html', context)
 
 
+@login_required(login_url='login')
+@allowed_users(['staffs'])
 def aircraft_details(request, aircraft_id: int):
     aircraft = __get_aircraft_details_or_raise_404(request, aircraft_id)
     context = {

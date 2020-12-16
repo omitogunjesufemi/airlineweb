@@ -1,6 +1,10 @@
 import datetime
 import uuid
+
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404, HttpRequest
+
+from app.decorators import allowed_users
 from app.dto.FlightDto import *
 from app.models import Flight
 from django.shortcuts import redirect, render
@@ -9,6 +13,8 @@ from app.service_provider import airline_service_provider
 from typing import List
 
 
+@login_required(login_url='login')
+@allowed_users(['staffs'])
 def register_flight(request):
     aircrafts = airline_service_provider.aircraft_management_service().get_all_for_selected_list()
     context = {
@@ -20,6 +26,8 @@ def register_flight(request):
     return render(request, 'flight/register_flight.html', context)
 
 
+@login_required(login_url='login')
+@allowed_users(['staffs'])
 def edit_flight(request, flight_id: int):
     aircrafts = airline_service_provider.aircraft_management_service().get_all_for_selected_list()
     editing_flight = __get_flight_or_raise_error(flight_id)
@@ -36,6 +44,8 @@ def edit_flight(request, flight_id: int):
     return render(request, 'flight/edit_flight.html', context)
 
 
+@login_required(login_url='login')
+@allowed_users(['staffs'])
 def list_flight(request):
     flights = airline_service_provider.flight_management_service().list_flight()
     context = {
@@ -45,6 +55,8 @@ def list_flight(request):
     return render(request, 'flight/list_flight.html', context)
 
 
+@login_required(login_url='login')
+@allowed_users(['staffs'])
 def flight_details(request, flight_id: int):
     flight = __get_flight_or_raise_error(flight_id)
     context = {
@@ -53,6 +65,8 @@ def flight_details(request, flight_id: int):
     return render(request, 'flight/flight_details.html', context)
 
 
+@login_required(login_url='login')
+@allowed_users(['staffs'])
 def delete_flight(request, flight_id: int):
     airline_service_provider.flight_management_service().delete_flight(flight_id)
     return redirect('list_flight')

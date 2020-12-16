@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+    <div class="row mx-auto my-auto">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card_title">
+                        <h4> Login </h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'login_post' %}" method="post">
+                        {% csrf_token %}
+                        {% if message %}
+                        <div class="alert alert-danger">{{ message }}</div>
+                        {% endif %}
+                        <div class="form-group">
+                            <label for="username" class="form-check-label">Username:</label>
+                            <input class="form-control" name="username" id="username">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="form-check-label">Password:</label>
+                            <input class="form-control" name="password" id="password" type="password">
+                        </div>
+
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-group btn-success">Sign in</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
