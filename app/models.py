@@ -40,7 +40,7 @@ class Passenger(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return f'{self.first_name:25} {self.last_name:25} {self.email:25} {self.phone:25} {self.address:25}\
+        return f'{self.user.first_name:25} {self.user.last_name:25} {self.user.email:25} {self.phone:25} {self.address:25}\
         {self.registration_number:25}'
 
 

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "staff/staff_base.html" %}
 {% block content %}
     <div class="row mt-5 offset-1">
     <div class="col-md-12 offset-3">
@@ -41,7 +41,7 @@
                         <a href="{% url 'delete_flight' flight.id %}" class="btn mr-1 btn-danger"> Delete</a>
                     </div>
                     <div class="btn-group">
-                        <a href="{% url 'register_passenger' flight_id=flight.id %}" class="btn btn-primary mr-1">Book</a>
+                        <a href="{% url 'register_booking' flight_id=flight.id %}" class="btn btn-primary mr-1">Book</a>
                     </div>
                 </td>
             </tr>

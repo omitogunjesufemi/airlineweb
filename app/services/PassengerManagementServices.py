@@ -21,7 +21,7 @@ class PassengerManagementService(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def passengers_details(self, passenger_id: int) -> PassengerDetailsDto:
+    def passengers_details(self, user_id: int) -> PassengerDetailsDto:
         """Details of Passenger Object"""
         raise NotImplementedError
 
@@ -46,8 +46,8 @@ class DefaultPassengerManagementService(PassengerManagementService):
     def list_passenger(self) -> List[ListPassengerDto]:
         return self.repository.list_passenger()
 
-    def passengers_details(self, passenger_id: int) -> PassengerDetailsDto:
-        return self.repository.passengers_details(passenger_id)
+    def passengers_details(self, user_id: int) -> PassengerDetailsDto:
+        return self.repository.passengers_details(user_id)
 
     def delete_passenger(self, passenger_id: int):
         return self.repository.delete_passenger(passenger_id)

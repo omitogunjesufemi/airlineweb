@@ -24,7 +24,7 @@ class PassengerRepository(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def passengers_details(self, passenger_id: int) -> PassengerDetailsDto:
+    def passengers_details(self, user_id: int) -> PassengerDetailsDto:
         """Details of Passenger Object"""
         raise NotImplementedError
 
@@ -94,18 +94,19 @@ class DjangoORMPassengerRepository(PassengerRepository):
             results.append(item)
         return results
 
-    def passengers_details(self, passenger_id: int) -> PassengerDetailsDto:
-        passenger = Passenger.objects.get(id=passenger_id)
+    def passengers_details(self, user_id: int) -> PassengerDetailsDto:
+        passenger = Passenger.objects.get(user_id=user_id)
         result = PassengerDetailsDto()
         result.first_name = passenger.user.first_name
         result.last_name = passenger.user.last_name
+        result.username = passenger.user.username
         result.phone = passenger.phone
         result.address = passenger.address
         result.email = passenger.user.email
         result.registration_number = passenger.registration_number
         # result.date_updated = passenger.date_updated
         # result.date_created = passenger.date_created
-        result.id = passenger_id
+        result.id = passenger.id
         return result
 
     def delete_passenger(self, passenger_id):

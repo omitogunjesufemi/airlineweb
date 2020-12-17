@@ -13,3 +13,12 @@ def list_staff(request):
         'staffs': staffs,
     }
     return render(request, '', context)
+
+
+@login_required(login_url='login')
+@allowed_users(['staffs'])
+def staff_home(request):
+    context = {
+        'welcome': "Welcome to the Staff HomePage!",
+    }
+    return render(request, 'staff/staff_home.html', context)

@@ -25,4 +25,5 @@ urlpatterns = [
     path('passenger/', include('app.view.passenger_view.urls')),
     path('booking/', include('app.view.booking_view.urls')),
     path('login/', include('app.view.login_view.urls')),
+    path('staff/', include('app.view.staff_view.urls')),
 ]

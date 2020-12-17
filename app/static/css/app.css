@@ -1,5 +1,3 @@
-{% load static %}
-
 .help-block {
     color: #F33;
     font-size: small;
@@ -7,5 +5,4 @@
 
 .bgimg{
     background: url("../img/img 1.jpg") no-repeat;
-
 }

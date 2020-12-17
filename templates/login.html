@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container">
-    <div class="row mx-auto my-auto">
+    <div class="container mt-5">
+    <div class="row mx-auto my-auto justify-content-center">
         <div class="col-md-6">
-            <div class="card">
+            <div class="card shadow-lg">
                 <div class="card-header">
                     <div class="card_title">
                         <h4> Login </h4>
@@ -27,6 +27,7 @@
 
                     <div class="card-footer">
                         <button type="submit" class="btn btn-group btn-success">Sign in</button>
+                        <a class="btn btn-group btn-primary" href="{% url 'register_passenger' %}"> Register!</a>
                     </div>
                     </form>
                 </div>

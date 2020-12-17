@@ -9,7 +9,7 @@
                             {{ title }}
                         </h4>
                         <div class="card-body">
-                            <form method="post" action="{% url 'register_passenger' flight_id=flight.id %}">
+                            <form method="post" action="{% url 'register_passenger' %}">
                                 {% csrf_token %}
                                 <div id="notify"></div>
 
@@ -41,6 +41,24 @@
                                     <label for="address" class="form-check-label">Home Address</label>
                                     <input name="address" class="form-control"
                                            value="{{ passenger.address }}" id="address">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="username" class="form-check-label">Username</label>
+                                    <input name="username" class="form-control"
+                                           value="{{ passenger.username }}" id="username">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password" class="form-check-label">Password</label>
+                                    <input name="password" class="form-control"
+                                           value="{{ passenger.password }}" id="password">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="confirm_password" class="form-check-label">Confirm Password</label>
+                                    <input name="confirm_password" class="form-control"
+                                           id="confirm_password">
                                 </div>
                                 <div>
                                     <input type="submit" class="button btn btn-primary btn-block text-light"

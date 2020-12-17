@@ -12,7 +12,7 @@ from django.shortcuts import redirect, render
 from django.http.request import HttpRequest
 
 
-@login_required(login_url='login')
+@login_required(login_url='login', redirect_field_name='register_aircraft')
 @allowed_users(['staffs'])
 def register_aircraft(request):
     context = {
@@ -24,7 +24,7 @@ def register_aircraft(request):
     return render(request, 'aircraft/register_aircraft.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login', redirect_field_name='edit_aircraft')
 @allowed_users(['staffs'])
 def edit_aircraft(request, aircraft_id):
     edit_aircraft_dto = __get_aircraft_details_or_raise_404(request, aircraft_id)
@@ -38,7 +38,7 @@ def edit_aircraft(request, aircraft_id):
     return render(request, 'aircraft/edit_aircraft.html/', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login', redirect_field_name='delete_aircraft')
 @allowed_users(['staffs'])
 def delete_aircraft(request, aircraft_id):
     airline_service_provider.aircraft_management_service().delete_aircraft(aircraft_id)

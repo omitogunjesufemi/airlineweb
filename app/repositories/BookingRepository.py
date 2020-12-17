@@ -31,7 +31,7 @@ class BookingRepository(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def get_all_bookings(self) -> List[ListBookingDto]:
+    def get_all_bookings(self) -> List[GetBookingDto]:
         """List of Bookings"""
         raise NotImplementedError
 
@@ -51,6 +51,7 @@ class DjangoORMBookingRepository(BookingRepository):
         booking.seat_number = model.seat_number
         booking.flight_class = model.flight_class
         booking.save()
+        return booking.id
 
     def edit_booking(self, booking_id: int, model: EditBookingDto):
         try:
@@ -80,7 +81,7 @@ class DjangoORMBookingRepository(BookingRepository):
             result.append(item)
         return result
 
-    def booking_details(self, booking_id: int) -> GetBookingDto:
+    def booking_details(self, booking_id: int) -> BookingDetailsDto:
         try:
             booking = Booking.objects.get(id=booking_id)
             result = GetBookingDto()
@@ -109,9 +110,10 @@ class DjangoORMBookingRepository(BookingRepository):
                                                'flight__take_off_location',
                                                'flight__departure_date',
                                                'flight__destination',
-                                               'passenger__first_name',
-                                               'passenger__last_name',
-                                               'passenger__email',
+                                               'passenger__user__first_name',
+                                               'passenger__user__last_name',
+                                               'passenger__user__username',
+                                               'passenger__user__email',
                                                'passenger__phone',
                                                'booking_reference',
                                                'seat_number',
@@ -124,9 +126,10 @@ class DjangoORMBookingRepository(BookingRepository):
             item.seat_number = booking['seat_number']
             item.flight_class = booking['flight_class']
             item.price = booking['price']
-            item.first_name = booking['passenger__first_name']
-            item.last_name = booking['passenger__last_name']
-            item.email = booking['passenger__email']
+            item.first_name = booking['passenger__user__first_name']
+            item.last_name = booking['passenger__user__last_name']
+            item.username = booking['passenger__user__username']
+            item.email = booking['passenger__user__email']
             item.phone = booking['passenger__phone']
             item.flight_number = booking['flight__flight_number']
             item.take_off_location = booking['flight__take_off_location']

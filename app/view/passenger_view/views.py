@@ -1,6 +1,9 @@
 import datetime
 import json
 import uuid
+
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404, HttpRequest
 from django.urls import reverse
 
@@ -12,21 +15,26 @@ from django.http.request import HttpRequest
 
 
 # REGISTER HERE
-def register_passenger(request, flight_id):
-    flight = airline_service_provider.flight_management_service().flight_details(flight_id)
+from app.view.login_view.views import login_page_post
+
+
+def register_passenger(request):
     context = {
-        'title': 'Fill in Your Details',
-        'flight': flight
+        'title': 'Fill in Your Details'
     }
-    if request.method == 'GET':
-        return render(request, 'passenger/register_passenger.html', context)
-    passenger = __set_passenger_attribute_request(request)
-    json_data = json.dumps(passenger.__dict__)
-    response = HttpResponse(status=302)
-    response.set_cookie('flight_id', flight_id)
-    response.set_cookie('passenger', json_data)
-    response['location'] = reverse('register_booking', args=[flight_id])
-    return response
+    passenger = __create_if_post(request, context)
+    if request.method == 'POST' and context['saved']:
+        username = passenger.username
+        password = passenger.password
+        user: User = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            if user.groups.filter(name__exact='passengers').exists():
+                nex = request.session.get('next')
+                print(nex)
+                return redirect(nex)
+        return redirect('')
+    return render(request, 'passenger/register_passenger.html', context)
 
 
 # EDIT HERE
@@ -69,29 +77,37 @@ def passenger_details(request, passenger_id):
 
 
 # REGISTERING A PASSENGER
-def __set_passenger_attribute_request(request):
+def __set_passenger_attribute_request(request: HttpRequest):
     register_passenger_dto = RegisterPassengerDto()
     register_passenger_dto.first_name = request.POST['first_name']
-    register_passenger_dto.registration_number = str(uuid.uuid4()).replace('-', '')[0:10].upper()
-    __get_passenger_attribute_request(request, register_passenger_dto)
+    __get_passenger_attribute_request(register_passenger_dto, request)
     return register_passenger_dto
 
 
-def __get_passenger_attribute_request(request, register_passenger_dto):
+def __get_passenger_attribute_request(register_passenger_dto, request):
     register_passenger_dto.last_name = request.POST['last_name']
     register_passenger_dto.phone = request.POST['phone']
     register_passenger_dto.email = request.POST['email']
     register_passenger_dto.address = request.POST['address']
+    register_passenger_dto.confirm_password = request.POST['confirm_password']
+    register_passenger_dto.password = request.POST['password']
+    register_passenger_dto.username = request.POST['username']
 
 
 def __create_if_post(request, context):
     if request.method == 'POST':
         try:
             passenger = __set_passenger_attribute_request(request)
-            passenger.registration_number = str(uuid.uuid4()).replace('-', '')[0:10].upper()
-            airline_service_provider.passenger_management_service().register_passenger(passenger)
-            context['saved'] = 'success'
-            return context
+            password = passenger.password
+            confirm = passenger.confirm_password
+            if password == confirm:
+                passenger.registration_number = str(uuid.uuid4()).replace('-', '')[0:10].upper()
+                airline_service_provider.passenger_management_service().register_passenger(passenger)
+                context['saved'] = 'success'
+                context['message'] = 'saved'
+                return passenger
+            else:
+                context['saved'] = False
         except Exception as e:
             print(e)
             context['saved'] = 'error'

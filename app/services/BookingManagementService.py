@@ -21,7 +21,7 @@ class BookingManagementService(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def get_all_bookings(self) -> List[ListBookingDto]:
+    def get_all_bookings(self) -> List[GetBookingDto]:
         """List of Bookings"""
         raise NotImplementedError
 
@@ -55,7 +55,7 @@ class DefaultBookingManagementService(BookingManagementService):
     def list_booking(self) -> List[ListBookingDto]:
         return self.repository.list_booking()
 
-    def get_all_bookings(self) -> List[ListBookingDto]:
+    def get_all_bookings(self) -> List[GetBookingDto]:
         return self.repository.get_all_bookings()
 
     def get_all_flight_id_only(self):
