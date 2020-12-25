@@ -14,49 +14,64 @@ from typing import List
 
 
 @login_required(login_url='login')
-@allowed_users(['staffs'])
 def register_flight(request):
-    aircrafts = airline_service_provider.aircraft_management_service().get_all_for_selected_list()
-    context = {
-        'aircrafts': aircrafts
-    }
-    __create_if_post_method(request, context)
-    if request.method == 'POST' and context['saved']:
-        return redirect('list_flight')
-    return render(request, 'flight/register_flight.html', context)
+    if request.user.has_perm('app.add_flight'):
+        aircrafts = airline_service_provider.aircraft_management_service().get_all_for_selected_list()
+        context = {
+            'aircrafts': aircrafts
+        }
+
+        __create_if_post_method(request, context)
+        if request.method == 'POST' and context['saved']:
+            return redirect('list_flight')
+        return render(request, 'flight/register_flight.html', context)
+    else:
+        context = {
+            'message': 'You are not allowed here'
+        }
+        return render(request, 'error_message.html', context)
 
 
 @login_required(login_url='login')
-@allowed_users(['staffs'])
 def edit_flight(request, flight_id: int):
-    aircrafts = airline_service_provider.aircraft_management_service().get_all_for_selected_list()
-    editing_flight = __get_flight_or_raise_error(flight_id)
-    context = {
-        'flight': editing_flight,
-        'arrival_time': editing_flight.arrival_time.strftime("%H:%M"),
-        'departure_date': editing_flight.departure_date.strftime("%Y-%m-%d"),
-        'aircrafts': aircrafts
-    }
-    new_editing_flight = __edit_if_post(request, flight_id, context)
-    if new_editing_flight is not None:
-        context['flight'] = new_editing_flight
-        return redirect('list_flight')
-    return render(request, 'flight/edit_flight.html', context)
+    if request.user.has_perm('app.change_flight'):
+        aircrafts = airline_service_provider.aircraft_management_service().get_all_for_selected_list()
+        editing_flight = __get_flight_or_raise_error(flight_id)
+        context = {
+            'flight': editing_flight,
+            'arrival_time': editing_flight.arrival_time.strftime("%H:%M"),
+            'departure_date': editing_flight.departure_date.strftime("%Y-%m-%d"),
+            'aircrafts': aircrafts
+        }
+        new_editing_flight = __edit_if_post(request, flight_id, context)
+        if new_editing_flight is not None:
+            context['flight'] = new_editing_flight
+            return redirect('list_flight')
+        return render(request, 'flight/edit_flight.html', context)
+    else:
+        context = {
+            'message': 'You are not authorised to view this page!'
+        }
+        return render(request, 'error_message.html', context)
 
 
 @login_required(login_url='login')
-@allowed_users(['staffs'])
 def list_flight(request):
-    flights = airline_service_provider.flight_management_service().list_flight()
-    context = {
-        'title': 'List Flight',
-        'flights': flights
-    }
-    return render(request, 'flight/list_flight.html', context)
+    if request.user.has_perm('app.view_flight'):
+        flights = airline_service_provider.flight_management_service().list_flight()
+        context = {
+            'title': 'List Flight',
+            'flights': flights
+        }
+        return render(request, 'flight/list_flight.html', context)
+    else:
+        context = {
+            'message': 'You are not authorised!'
+        }
+        return render(request, 'error_message.html', context)
 
 
 @login_required(login_url='login')
-@allowed_users(['staffs'])
 def flight_details(request, flight_id: int):
     flight = __get_flight_or_raise_error(flight_id)
     context = {
@@ -66,10 +81,15 @@ def flight_details(request, flight_id: int):
 
 
 @login_required(login_url='login')
-@allowed_users(['staffs'])
 def delete_flight(request, flight_id: int):
-    airline_service_provider.flight_management_service().delete_flight(flight_id)
-    return redirect('list_flight')
+    if request.user.has_perm('app.delete_flight'):
+        airline_service_provider.flight_management_service().delete_flight(flight_id)
+        return redirect('list_flight')
+    else:
+        context = {
+            'message': 'You are not authorised'
+        }
+        return render(request, 'error_message.html', context)
 
 
 # REGISTERING A FLIGHT

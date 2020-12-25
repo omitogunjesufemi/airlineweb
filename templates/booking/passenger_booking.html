@@ -1,50 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
-
-    <div class="row mt-5 offset-sm-0" style="padding: 0 100px">
-        <div class="col-md-12 offset-sm-0">
-            <h2>{{ title }}</h2>
-        </div>
-        <table class="table table-hover table-responsive text-center">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>State of Departure</th>
-                <th>Destination</th>
-                <th>Date of Departure</th>
-                <th>Flight Number</th>
-                <th>Flight Class</th>
-                <th>Price</th>
-                <th class="text-center">Actions</th>
-            </tr>
-            </thead>
-            {% for booking in bookings %}
-                <tbody>
+    <div class="container">
+        <div class="row mt-5 justify-content-center" style="padding: 0 100px">
+            <div class="col-md-12 offset-sm-0">
+                <h2>{{ title }}</h2>
+            </div>
+            <table class="table table-hover table-responsive text-center">
+                <thead>
                 <tr>
-                    <td>{{ booking.first_name }} {{ booking.last_name }}</td>
-                    <td>{{ booking.take_off_location }}</td>
-                    <td>{{ booking.destination }}</td>
-                    <td>{{ booking.departure_date }}</td>
-                    <td>{{ booking.flight_number }}</td>
-                    <td>{{ booking.flight_class }}</td>
-                    <td>{{ booking.price }}</td>
-
-                    <td>
-                        <div class="btn-group">
-                            <a href="{% url 'booking_details' booking.id %}" class="btn mr-1 btn-success"> Details</a>
-                        </div>
-
-                        <div class="btn-group">
-                            <a href="{% url 'edit_booking' booking.id %}" class="btn  mr-1 btn-warning"> Edit</a>
-                        </div>
-
-                        <div class="btn-group">
-                            <a href="{% url 'delete_booking' booking.id %}" class="btn mr-1 btn-danger"> Delete</a>
-                        </div>
-
-                    </td>
+                    <th>Name</th>
+                    <th>State of Departure</th>
+                    <th>Destination</th>
+                    <th>Date of Departure</th>
+                    <th>Flight Number</th>
+                    <th>Flight Class</th>
+                    <th>Price</th>
+                    <th class="text-center">Actions</th>
                 </tr>
-                </tbody>
-            {% endfor %}
-        </table>
+                </thead>
+                {% for booking in bookings %}
+                    <tbody>
+                    <tr>
+                        <td>{{ booking.first_name }} {{ booking.last_name }}</td>
+                        <td>{{ booking.take_off_location }}</td>
+                        <td>{{ booking.destination }}</td>
+                        <td>{{ booking.departure_date }}</td>
+                        <td>{{ booking.flight_number }}</td>
+                        <td>{{ booking.flight_class }}</td>
+                        <td>{{ booking.price }}</td>
+
+                        <td>
+                            <div class="btn-group">
+                                <a href="{% url 'booking_details' booking.id %}" class="btn mr-1 btn-success"> Details</a>
+
+                                <a href="{% url 'edit_booking' booking.id %}" class="btn  mr-1 btn-warning"> Edit</a>
+
+                                <a href="{% url 'delete_booking' booking.id %}" class="btn mr-1 btn-danger delete_demo"> Delete</a>
+                            </div>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 {% endblock %}

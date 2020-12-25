@@ -23,7 +23,7 @@ class StaffRepository(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def staff_details(self, staff_id: int) -> StaffDetailsDto:
+    def staff_details(self, user_id: int) -> StaffDetailsDto:
         """Staff Details"""
         raise NotImplementedError
 
@@ -63,6 +63,7 @@ class DjangoORMStaffRepository(StaffRepository):
             staff.user.username = model.username
             staff.department = model.department
             staff.save()
+            staff.user.save()
         except Staff.DoesNotExist as e:
             raise e
 
@@ -90,17 +91,18 @@ class DjangoORMStaffRepository(StaffRepository):
             results.append(item)
         return results
 
-    def staff_details(self, staff_id: int) -> StaffDetailsDto:
+    def staff_details(self, user_id: int) -> StaffDetailsDto:
         try:
-            staff = Staff.objects.get(id=staff_id)
+            staff = Staff.objects.get(user_id=user_id)
             result = StaffDetailsDto()
             result.first_name = staff.user.first_name
             result.last_name = staff.user.last_name
             result.email = staff.user.email
+            result.username = staff.user.username
             result.role = staff.role
             result.department = staff.department
             result.date_of_employment = staff.date_of_employment
-            result.id = staff_id
+            result.id = staff.id
             return result
         except Staff.DoesNotExist as e:
             raise e

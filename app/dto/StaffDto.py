@@ -21,6 +21,7 @@ class EditStaffDto:
     role: str
     department: str
     date_of_employment: date
+    id: int
 
 
 class ListStaffDto:

@@ -19,7 +19,7 @@ class StaffManagementService(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def staff_details(self, staff_id: int) -> StaffDetailsDto:
+    def staff_details(self, user_id: int) -> StaffDetailsDto:
         """Staff Details"""
         raise NotImplementedError
 
@@ -44,9 +44,8 @@ class DefaultStaffManagementService(StaffManagementService):
     def list_staff(self, model: ListStaffDto):
         return self.repository.list_staff(model)
 
-    def staff_details(self, staff_id: int) -> StaffDetailsDto:
-        return self.repository.staff_details(staff_id)
+    def staff_details(self, user_id: int) -> StaffDetailsDto:
+        return self.repository.staff_details(user_id)
 
     def delete_staff(self, staff_id: int):
         return self.repository.delete_staff(staff_id)
-

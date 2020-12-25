@@ -57,6 +57,7 @@ class DjangoORMFlightRepository(FlightRepository):
             flight.take_off_location = model.take_off_location
             flight.departure_date = model.departure_date
             flight.destination = model.destination
+            flight.price = model.price
             flight.arrival_time = model.arrival_time
             flight.date_updated = model.date_updated
             flight.save()

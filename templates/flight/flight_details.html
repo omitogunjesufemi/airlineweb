@@ -52,7 +52,7 @@
                                 </div>
 
                             </div>
-
+                            {% if request.user.is_staff %}
                             <div class="form-row">
                                 <div class="form-group col-6">
                                     <label for="date_created" class="form-check-label">Date Created</label>
@@ -66,9 +66,13 @@
                                            value="{{ flight.date_updated }}" id="date_updated">
                                 </div>
                             </div>
+
                                 <div>
                                     <a href="{% url 'list_flight' %}" class="btn btn-primary"> << Back </a>
                                 </div>
+
+                            {% endif %}
+
                         </div>
                     </div>
                 </div>

@@ -63,8 +63,10 @@ class DjangoORMPassengerRepository(PassengerRepository):
             passenger.user.email = model.email
             passenger.user.username = model.username
             passenger.address = model.address
+            passenger.phone = model.phone
             # passenger.date_updated = model.date_updated
             passenger.save()
+            passenger.user.save()
         except Passenger.DoesNotExist as e:
             print('This Passenger does not exist!')
             raise e

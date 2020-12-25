@@ -1,44 +1,53 @@
 {% extends "staff/staff_base.html" %}
 {% block content %}
-    <div class="row mt-5 offset-2">
-        <div class="col-md-12 offset-2">
-            <h2>{{ title }}</h2>
+    <div class="container">
+    <div class="row mt-5 justify-content-center">
+        <div class="col-9">
+            <div class="card">
+                <div class="card-header text-center bg-white">
+                    <h2>{{ title }} <a href="{% url 'register_aircraft' %}" class="card-link"> + </a></h2>
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-hover table-responsive text-center">
+                        <thead>
+                            <tr>
+                                <th>Aircraft Name</th>
+                                <th>Aircraft Type</th>
+                                <th>Aircraft Number</th>
+                                <th>Capacity</th>
+                                <th> </th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        {% for aircraft in aircrafts %}
+                            <tbody>
+                                <tr>
+                                    <td>{{ aircraft.aircraft_name }}</td>
+                                    <td>{{ aircraft.aircraft_type }}</td>
+                                    <td>{{ aircraft.aircraft_number }}</td>
+                                    <td>{{ aircraft.capacity }}</td>
+                                    <td> </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{% url 'aircraft_details' aircraft.id %}" class="btn mr-1 btn-success"> Details</a>
+                                        </div>
+
+                                        <div class="btn-group">
+                                            <a href="{% url 'edit_aircraft' aircraft.id %}" class="btn  mr-1 btn-warning"> Edit</a>
+                                        </div>
+
+                                        <div class="btn-group">
+                                            <a href="{% url 'delete_aircraft' aircraft.id %}" class="btn mr-1 btn-danger delete_demo"> Delete</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
         </div>
-    <table class="table table-hover table-responsive text-center">
-        <thead>
-            <tr>
-                <th>Aircraft Name</th>
-                <th>Aircraft Type</th>
-                <th>Aircraft Number</th>
-                <th>Capacity</th>
-                <th> </th>
-                <th class="text-center">Actions</th>
-            </tr>
-        </thead>
-        {% for aircraft in aircrafts %}
-            <tbody>
-                <tr>
-                    <td>{{ aircraft.aircraft_name }}</td>
-                    <td>{{ aircraft.aircraft_type }}</td>
-                    <td>{{ aircraft.aircraft_number }}</td>
-                    <td>{{ aircraft.capacity }}</td>
-                    <td> </td>
-                    <td>
-                        <div class="btn-group">
-                            <a href="{% url 'aircraft_details' aircraft.id %}" class="btn mr-1 btn-success"> Details</a>
-                        </div>
-
-                        <div class="btn-group">
-                            <a href="{% url 'edit_aircraft' aircraft.id %}" class="btn  mr-1 btn-warning"> Edit</a>
-                        </div>
-
-                        <div class="btn-group">
-                            <a href="{% url 'delete_aircraft' aircraft.id %}" class="btn mr-1 btn-danger"> Delete</a>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        {% endfor %}
-    </table>
+    </div>
+    </div>
 {% endblock %}
-</div>

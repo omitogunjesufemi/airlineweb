@@ -1,52 +1,63 @@
 {% extends "staff/staff_base.html" %}
 {% block content %}
-    <div class="row mt-5 offset-1">
-    <div class="col-md-12 offset-3">
-        <h2>{{ title }}</h2>
+    <div>
+        <div class="row mt-5 justify-content-center">
+            <div class="col-">
+                <div class="card">
+                    <div class="card-header text-center text-uppercase bg-white">
+                        <h2>{{ title }} <a href="{% url 'register_flight' %}" class="card-link"> + </a> </h2>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <table class="table table-hover table-responsive text-center justify-content-center">
+                                <thead>
+                                <tr>
+                                    <th>Flight Number</th>
+                                    <th>Aircraft Name</th>
+                                    <th>Take-Off Location</th>
+                                    <th>Date of Departure</th>
+                                    <th>Destination</th>
+                                    <th>Arrival Time</th>
+                                    <th>Price</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                                </thead>
+                                {% for flight in flights %}
+                                    <tbody>
+                                    <tr>
+                                        <td>{{ flight.flight_number }}</td>
+                                        <td>{{ flight.aircraft_name }}</td>
+                                        <td>{{ flight.take_off_location }}</td>
+                                        <td>{{ flight.departure_date }}</td>
+                                        <td>{{ flight.destination }}</td>
+                                        <td>{{ flight.arrival_time }}</td>
+                                        <td>{{ flight.price }}</td>
+
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="{% url 'flight_details' flight.id %}" class="btn mr-1 btn-success"> Details</a>
+                                            </div>
+
+                                            <div class="btn-group">
+                                                <a href="{% url 'edit_flight' flight.id %}" class="btn  mr-1 btn-warning"> Edit</a>
+                                            </div>
+
+                                            <div class="btn-group">
+                                                <a href="{% url 'delete_flight' flight.id %}" class="btn mr-1 btn-danger delete_demo"> Delete</a>
+                                            </div>
+                                            <div class="btn-group">
+                                                <a href="{% url 'register_booking' flight_id=flight.id %}" class="btn btn-primary mr-1">Book</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <table class="table table-hover table-responsive text-center">
-        <thead>
-        <tr>
-            <th>Flight Number</th>
-            <th>Aircraft Name</th>
-            <th>Take-Off Location</th>
-            <th>Date of Departure</th>
-            <th>Destination</th>
-            <th>Arrival Time</th>
-            <th>Price</th>
-            <th class="text-center">Actions</th>
-        </tr>
-        </thead>
-        {% for flight in flights %}
-            <tbody>
-            <tr>
-                <td>{{ flight.flight_number }}</td>
-                <td>{{ flight.aircraft_name }}</td>
-                <td>{{ flight.take_off_location }}</td>
-                <td>{{ flight.departure_date }}</td>
-                <td>{{ flight.destination }}</td>
-                <td>{{ flight.arrival_time }}</td>
-                <td>{{ flight.price }}</td>
-
-                <td>
-                    <div class="btn-group">
-                        <a href="{% url 'flight_details' flight.id %}" class="btn mr-1 btn-success"> Details</a>
-                    </div>
-
-                    <div class="btn-group">
-                        <a href="{% url 'edit_flight' flight.id %}" class="btn  mr-1 btn-warning"> Edit</a>
-                    </div>
-
-                    <div class="btn-group">
-                        <a href="{% url 'delete_flight' flight.id %}" class="btn mr-1 btn-danger"> Delete</a>
-                    </div>
-                    <div class="btn-group">
-                        <a href="{% url 'register_booking' flight_id=flight.id %}" class="btn btn-primary mr-1">Book</a>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        {% endfor %}
-    </table>
 {% endblock %}
-</div>

@@ -12,58 +12,87 @@ from django.shortcuts import redirect, render
 from django.http.request import HttpRequest
 
 
-@login_required(login_url='login', redirect_field_name='register_aircraft')
-@allowed_users(['staffs'])
+@login_required(login_url='login')
 def register_aircraft(request):
-    context = {
+    if request.user.has_perm('app.add_aircraft'):
+        context = {
 
-    }
-    __create_if_post_method(request, context)
-    if request.method == 'POST' and context['saved']:
-        return redirect('list_aircraft')
-    return render(request, 'aircraft/register_aircraft.html', context)
+        }
+        __create_if_post_method(request, context)
+        if request.method == 'POST' and context['saved']:
+            return redirect('list_aircraft')
+        return render(request, 'aircraft/register_aircraft.html', context)
+    else:
+        context = {
+            'message': 'You are not authorised'
+
+        }
+        return render(request, 'error_message.html', context)
 
 
-@login_required(login_url='login', redirect_field_name='edit_aircraft')
-@allowed_users(['staffs'])
+@login_required(login_url='login')
 def edit_aircraft(request, aircraft_id):
-    edit_aircraft_dto = __get_aircraft_details_or_raise_404(request, aircraft_id)
-    context = {
-        'aircraft': edit_aircraft_dto
-    }
-    new_edit_aircraft = __edit_if_post_method(request, aircraft_id, context)
-    if new_edit_aircraft is not None:
-        context['aircraft'] = new_edit_aircraft
-        return redirect('list_aircraft')
-    return render(request, 'aircraft/edit_aircraft.html/', context)
+    if request.user.has_perm('app.change_aircraft'):
+        edit_aircraft_dto = __get_aircraft_details_or_raise_404(request, aircraft_id)
+        context = {
+            'aircraft': edit_aircraft_dto
+        }
+        new_edit_aircraft = __edit_if_post_method(request, aircraft_id, context)
+        if new_edit_aircraft is not None:
+            context['aircraft'] = new_edit_aircraft
+            return redirect('list_aircraft')
+        return render(request, 'aircraft/edit_aircraft.html/', context)
+    else:
+        context={
+            'message': 'You are not authorised'
+        }
+        return render(request, 'error_message.html', context)
 
 
-@login_required(login_url='login', redirect_field_name='delete_aircraft')
-@allowed_users(['staffs'])
+@login_required(login_url='login')
 def delete_aircraft(request, aircraft_id):
-    airline_service_provider.aircraft_management_service().delete_aircraft(aircraft_id)
-    return redirect('list_aircraft')
+    if request.user.has_perm('app.delete_aircraft'):
+        airline_service_provider.aircraft_management_service().delete_aircraft(aircraft_id)
+        return redirect('list_aircraft')
+    else:
+        context = {
+            'message': 'You are not authorised'
+
+        }
+        return render(request, 'error_message.html', context)
 
 
 @login_required(login_url='login')
-@allowed_users(['staffs'])
 def list_aircraft(request):
-    aircrafts = airline_service_provider.aircraft_management_service().list_aircraft()
-    context = {
-        'title': 'List Aircraft',
-        'aircrafts': aircrafts
-    }
-    return render(request, 'aircraft/list_aircraft.html', context)
+    if request.user.has_perm('app.view_aircraft'):
+        aircrafts = airline_service_provider.aircraft_management_service().list_aircraft()
+        context = {
+            'title': 'List Aircraft',
+            'aircrafts': aircrafts
+        }
+        return render(request, 'aircraft/list_aircraft.html', context)
+    else:
+        context = {
+            'message': 'You are not authorised'
+
+        }
+        return render(request, 'error_message.html', context)
 
 
 @login_required(login_url='login')
-@allowed_users(['staffs'])
 def aircraft_details(request, aircraft_id: int):
-    aircraft = __get_aircraft_details_or_raise_404(request, aircraft_id)
-    context = {
-        'aircraft': aircraft
-    }
-    return render(request, 'aircraft/aircraft_details.html', context)
+    if request.user.has_perm('app.view_aircraft'):
+        aircraft = __get_aircraft_details_or_raise_404(request, aircraft_id)
+        context = {
+            'aircraft': aircraft
+        }
+        return render(request, 'aircraft/aircraft_details.html', context)
+    else:
+        context = {
+            'message': 'You are not authorised'
+
+        }
+        return render(request, 'error_message.html', context)
 
 
 def __get_aircraft_details_or_raise_404(request, aircraft_id: int):
